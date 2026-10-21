@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Guess a crypto word. Learn the idea. Leave a little proof on Aptos.">
+  <title>Blockword — a little proof of learning</title>
+  <link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+  <script src="/static/accounts.mjs" type="module"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/" aria-label="Blockword home"><span class="brand-mark" aria-hidden="true">b.</span>blockword<span class="brand-period">/</span></a>
+    <div class="header-right"><span class="network"><span class="dot"></span>APTOS DEVNET</span><button id="account-button" class="text-button">Player account</button><button id="how-button" class="text-button">How to play ↗</button></div>
+  </header>
+  <main>
+    <section class="intro"><p class="eyebrow">A LITTLE PROOF OF LEARNING</p><h1>Small words.<br><em>New ideas.</em></h1><p class="intro-copy">A crypto word, six guesses, and something new to take away.<br class="desktop-break"> Each guess is recorded on Aptos devnet.<br>Devnet records can disappear when the network resets.</p></section>
+    <section class="workspace" aria-label="Game workspace">
+      <aside class="field-notes">
+        <div class="section-label"><span>01 / THE IDEA</span><span>↘</span></div>
+        <h2>Learn it.<br>One letter<br>at a time.</h2>
+        <p>Get to know the terms behind crypto, one word at a time.</p>
+        <div class="numbers"><div><strong>22</strong><span>crypto terms</span></div><div><strong>06</strong><span>chances to find it</span></div></div>
+        <div class="color-key"><div><span class="swatch exact">a</span><span>Right letter, right spot.</span></div><div><span class="swatch elsewhere">p</span><span>Right letter, another spot.</span></div><div><span class="swatch absent">t</span><span>No unused copy of this letter.</span></div></div>
+        <button id="words-button" class="underlined">Browse the word list <span>↗</span></button>
+        <p class="tiny-note">A focused Wordle prototype for PS3.<br>Free devnet APT. No prizes or deposits.</p>
+      </aside>
+      <section class="game-card" aria-label="Word puzzle">
+        <div class="game-heading"><span class="section-label">02 / YOUR ROUND</span><span id="round-label" class="round-label">READY WHEN YOU ARE</span></div>
+        <div id="board" class="board" role="table" aria-rowcount="6" aria-colcount="5" aria-label="Six guesses, five letters each"></div>
+        <p id="board-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+        <p id="status" class="status" role="status" aria-live="polite">Start a round to guess a five-letter crypto term.</p>
+        <button id="mobile-words-button" class="mobile-words text-button">Browse the word list ↗</button>
+        <div id="start-area"><button id="start-button" class="primary">Start a round <span>↗</span></button><p class="wallet-note">Creates a temporary demo wallet on the server.<br>We cover the devnet gas.</p></div>
+        <form id="guess-form" hidden><label class="sr-only" for="guess-input">Your five-letter guess</label><div class="guess-entry"><input id="guess-input" maxlength="5" minlength="5" pattern="[a-zA-Z]{5}" placeholder="Your guess" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="status"><button id="guess-button" type="submit">Submit ↵</button></div></form>
+        <div id="keyboard" class="keyboard" aria-label="On-screen keyboard" hidden></div>
+        <div id="result" class="result" hidden><p class="eyebrow">TAKE THIS ONE WITH YOU</p><h3 id="answer"></h3><p id="definition"></p><div class="result-actions"><button id="again-button" class="primary">Another word ↗</button><button id="share-button" class="text-button">Copy result</button></div></div>
+        <div class="game-footer"><span id="attempts">0 / 6 GUESSES</span><button id="forfeit-button" class="text-button" hidden>Reveal & end round</button><span id="verification-label">COMMIT → PLAY → VERIFY</span></div>
+      </section>
+      <aside class="proof-panel">
+        <div class="section-label"><span>03 / THE PAPER TRAIL</span><span>↗</span></div>
+        <h2>A word.<br>With receipts.</h2>
+        <p>Before your first guess, the service commits to an answer. At the end, the contract checks that answer and the feedback for each guess.</p>
+        <div class="passport"><div class="passport-title">YOUR ROUND RECORD <span>◎</span></div><div class="passport-stats"><div><strong id="wins">0</strong><span>wins</span></div><div><strong id="rounds">0</strong><span>verified rounds</span></div></div><a id="player-link" class="address" target="_blank" rel="noopener noreferrer">A wallet appears when you start.</a></div>
+        <div class="receipt-heading"><h3>Recent receipts</h3></div>
+        <button id="refresh-button" class="recovery-button text-button">Check &amp; finish verification</button>
+        <p class="tiny-note recovery-note">Checks saved requests. If a round has ended, this may send its answer for verification using test APT.</p>
+        <div id="receipts" class="receipts"><p class="empty-receipts">A clean slate.<br>Your first receipt will land here.</p></div>
+        <details class="proof-details"><summary>What am I trusting?</summary><p>A Python referee signs live feedback. Move checks those signatures, limits each round to six guesses, then independently re-scores the revealed answer. Wins count only after that check.</p><p>This demo uses server-held wallets. Devnet can reset, so receipts are not permanent. There is no token reward.</p><a id="contract-link" target="_blank" rel="noopener noreferrer">Inspect the contract ↗</a></details>
+      </aside>
+    </section>
+    <footer class="site-footer"><span>Built to make the chain a little less abstract.</span><span>PYTHON + MOVE <span class="footer-cross">✳</span> PS3 / WORDLE ON-CHAIN</span></footer>
+  </main>
+  <dialog id="words-dialog"><div class="dialog-top"><span class="eyebrow">THE SMALL PRINT, LITERALLY</span><button class="close-dialog" aria-label="Close word list">×</button></div><h2>22 words.<br>Plenty to unpack.</h2><p>Every answer and every guess comes from this list. Pick a term to put it on your board.</p><div id="word-list" class="word-list"></div><p class="tiny-note">We keep the vocabulary small so you can spend your time learning the terms.</p></dialog>
+  <dialog id="account-dialog" aria-labelledby="account-heading">
+    <div class="dialog-top"><span class="eyebrow">YOUR PLAYER ACCOUNT</span><button id="account-close" aria-label="Close player account">×</button></div>
+    <h2 id="account-heading">A name to<br>come back to.</h2>
+    <p id="account-status" class="account-status" role="status" aria-live="polite">Sign in with your wallet to save a player profile.</p>
+    <section id="account-guest"><p>Sign a short message to prove you own your wallet. This sends no transaction and gives the server no access to your private key.</p><div id="wallet-choices"></div><p class="tiny-note">Standard Ed25519 accounts only for now. Keyless and multisig accounts need a later sign-in implementation.</p></section>
+    <section id="account-member" hidden>
+      <p id="account-wallet" class="account-address"></p>
+      <form id="profile-form"><label for="profile-name">Player name</label><div class="profile-entry"><input id="profile-name" maxlength="40" required autocomplete="nickname"><button class="primary" type="submit">Save</button></div></form>
+      <p class="tiny-note">This wallet identifies your player profile. Game transactions still use the separate, server-held demo wallet shown on the board.</p>
+      <h3>Demo history</h3><p id="account-links" class="tiny-note"></p><button id="link-demo-button" class="underlined">Link this browser's demo history ↗</button>
+      <div id="account-rounds"></div>
+      <h3>Active sessions</h3><div id="account-sessions"></div><button id="signout-all-button" class="underlined">Sign out all player sessions</button>
+    </section>
+  </dialog>
+  <dialog id="how-dialog"><div class="dialog-top"><span class="eyebrow">A QUICK WALKTHROUGH</span><button class="close-dialog" aria-label="Close instructions">×</button></div><h2>Guess. Learn.<br>Keep the receipt.</h2><ol class="instructions"><li>Start a round. The service picks one of 22 five-letter crypto terms and commits a salted hash to Aptos devnet.</li><li>Guess from the word list. Green is an exact match, amber is a misplaced letter, and grey means no unused copy of that letter remains. Repeated letters count only as often as they appear in the answer.</li><li>Find the word within six guesses. Each submitted guess sends an Aptos devnet transaction.</li><li>When you win, use all six guesses, or end the round, the service sends the answer and salt for verification. Move checks the commitment and every feedback row before updating your round record.</li></ol><p class="tiny-note">No wallet extension needed to play. Keys are held by the Python server. The app needs an internet connection to play.</p></dialog>
+</body>
+</html>

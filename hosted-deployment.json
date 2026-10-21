@@ -1,0 +1,15 @@
+{
+  "url": "https://blockword-ps3-demo.vercel.app",
+  "vercel_project": "blockword-ps3-demo",
+  "vercel_plan": "hobby",
+  "deployment_id": "dpl_93AcqQHG16bae3PmUwk3tw8T7vsE",
+  "database": "Neon claimable Postgres",
+  "database_project": "dark-snow-27494524",
+  "database_expires_at": "2026-10-24T17:46:59.670Z",
+  "contract_reused": true,
+  "contract_address": "0xd55b539adc2512a21d5e16b1757c99dd8f183dd4579fa4ad6fa609147312df8e",
+  "verified_at": "2026-10-21T18:01:42.676999+00:00",
+  "python_tests": 87,
+  "client_tests": 13,
+  "installed_wallet_extension_tested": false
+}

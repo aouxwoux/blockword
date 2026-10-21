@@ -1,0 +1,12 @@
+[package]
+name = "Blockword"
+version = "1.0.0"
+upgrade_policy = "immutable"
+
+[addresses]
+blockword = "_"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "96be453e7d5bac59fbd43487b00710ae586820a6"
+subdir = "aptos-framework"

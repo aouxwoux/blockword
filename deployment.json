@@ -1,0 +1,12 @@
+{
+  "network": "devnet",
+  "chain_id": 249,
+  "address": "0xd55b539adc2512a21d5e16b1757c99dd8f183dd4579fa4ad6fa609147312df8e",
+  "module": "0xd55b539adc2512a21d5e16b1757c99dd8f183dd4579fa4ad6fa609147312df8e::game",
+  "node_url": "https://fullnode.devnet.aptoslabs.com/v1",
+  "publish_transaction": "0x61ba797dba907e730ae043edbfa7ab87a70167005efa3c4cb1b21e385a72cfa5",
+  "configure_transaction": "0xeb56dbf79f8320d0b36a207765ecc95271db36dc66efc1b0558a3b1a683ed3db",
+  "verified_at": "2026-10-20T05:47:37.277834+00:00",
+  "module_bytecode_sha256": "0f6d8f1e947ed8d90612011e2ee1d01bfa374263eea2d947bffd75013426842e",
+  "explorer": "https://explorer.aptoslabs.com/account/0xd55b539adc2512a21d5e16b1757c99dd8f183dd4579fa4ad6fa609147312df8e/modules?network=devnet"
+}

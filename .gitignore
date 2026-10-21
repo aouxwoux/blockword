@@ -1,0 +1,12 @@
+.venv/
+.local/
+.aptos/
+.vercel/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.sqlite*
+*.db
+.env*
+deployer.json
+contract/build/

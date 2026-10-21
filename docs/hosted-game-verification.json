@@ -1,0 +1,61 @@
+{
+  "verified_at": "2026-10-21T17:56:47.184423+00:00",
+  "network": "devnet",
+  "module": "0xd55b539adc2512a21d5e16b1757c99dd8f183dd4579fa4ad6fa609147312df8e::game",
+  "player": "0xec975343838cbfc4a071c22986dde96d424b9275b4038b48ce6d765e65c8e612",
+  "round_id": 1,
+  "attempts": 2,
+  "answer": "vault",
+  "won": true,
+  "verified": true,
+  "passport": {
+    "rounds": 1,
+    "total_guesses": 2,
+    "verified_rounds": 1,
+    "wins": 1
+  },
+  "receipts": [
+    {
+      "hash": "0x1a6013f281434074af53b5cb3d63c0da7105fbf7d312118ee3407095d21f22e7",
+      "kind": "fund",
+      "status": "confirmed",
+      "version": "55072316",
+      "gas_used": "5414"
+    },
+    {
+      "hash": "0xd31835abbc85fce7dc698d71e22f5b00daf2ee4eab531530646a23b7246cc25c",
+      "kind": "start",
+      "status": "confirmed",
+      "version": "55072395",
+      "gas_used": "13923"
+    },
+    {
+      "hash": "0xd0b70c879a7abd6771a4628adb072f599a30786f990fce9f28a603d028fb95a7",
+      "kind": "guess",
+      "status": "confirmed",
+      "version": "55072496",
+      "gas_used": "113"
+    },
+    {
+      "hash": "0x4eba643d4d019218fcb2b1e61cc579ef0323829ff6f2c3d4b5ebe89ae5782381",
+      "kind": "guess",
+      "status": "confirmed",
+      "version": "55072622",
+      "gas_used": "116"
+    },
+    {
+      "hash": "0x1aee39a72c83bee2797fc376d7c9c315a5e41748b91fa1ef757e4f24076def51",
+      "kind": "reveal",
+      "status": "confirmed",
+      "version": "55072693",
+      "gas_used": "83"
+    }
+  ],
+  "checks": [
+    "HTTP game flow",
+    "feedback-only solver",
+    "idempotent guess retries",
+    "every receipt fetched from fullnode",
+    "on-chain verified Game resource"
+  ]
+}

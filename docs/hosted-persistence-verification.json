@@ -1,0 +1,14 @@
+{
+  "verified_at": "2026-10-21T18:01:42.676999+00:00",
+  "url": "https://blockword-ps3-demo.vercel.app",
+  "checks": [
+    "profile survives a production redeploy",
+    "both linked rounds survive a production redeploy",
+    "demo session and completed round survive a production redeploy",
+    "live session listing and revoke-all",
+    "public URL needs no Vercel login",
+    "unauthenticated account data rejected",
+    "local environment file not served"
+  ],
+  "production_deployment_id": "dpl_93AcqQHG16bae3PmUwk3tw8T7vsE"
+}

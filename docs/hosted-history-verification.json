@@ -1,0 +1,70 @@
+{
+  "verified_at": "2026-10-21T17:58:14.180543+00:00",
+  "url": "https://blockword-ps3-demo.vercel.app",
+  "checks": [
+    "explicit history linking",
+    "completed win in saved history",
+    "early reveal verified on Aptos",
+    "two rounds with one win",
+    "private history excludes keys and answer backups"
+  ],
+  "player": "0xec975343838cbfc4a071c22986dde96d424b9275b4038b48ce6d765e65c8e612",
+  "receipts": [
+    {
+      "hash": "0x1a6013f281434074af53b5cb3d63c0da7105fbf7d312118ee3407095d21f22e7",
+      "kind": "fund",
+      "status": "confirmed",
+      "version": "55072316",
+      "gas_used": "5414"
+    },
+    {
+      "hash": "0xd31835abbc85fce7dc698d71e22f5b00daf2ee4eab531530646a23b7246cc25c",
+      "kind": "start",
+      "status": "confirmed",
+      "version": "55072395",
+      "gas_used": "13923"
+    },
+    {
+      "hash": "0xd0b70c879a7abd6771a4628adb072f599a30786f990fce9f28a603d028fb95a7",
+      "kind": "guess",
+      "status": "confirmed",
+      "version": "55072496",
+      "gas_used": "113"
+    },
+    {
+      "hash": "0x4eba643d4d019218fcb2b1e61cc579ef0323829ff6f2c3d4b5ebe89ae5782381",
+      "kind": "guess",
+      "status": "confirmed",
+      "version": "55072622",
+      "gas_used": "116"
+    },
+    {
+      "hash": "0x1aee39a72c83bee2797fc376d7c9c315a5e41748b91fa1ef757e4f24076def51",
+      "kind": "reveal",
+      "status": "confirmed",
+      "version": "55072693",
+      "gas_used": "83"
+    },
+    {
+      "hash": "0xbba91e7524c1a95f7c99b0cc5ba2d0309a88446b0944c31f146752b1f8f2de97",
+      "kind": "start",
+      "status": "confirmed",
+      "version": "55075361",
+      "gas_used": "74"
+    },
+    {
+      "hash": "0x13e44efee7f4b50a8fab0151d5617c49c691ff6e8fd87463d27aea359cf02b33",
+      "kind": "forfeit",
+      "status": "confirmed",
+      "version": "55075456",
+      "gas_used": "41"
+    },
+    {
+      "hash": "0x91273e274487c6f88d6b0b5324609184552fd982ff326bde2b3d99fc1463b4b6",
+      "kind": "reveal",
+      "status": "confirmed",
+      "version": "55075494",
+      "gas_used": "56"
+    }
+  ]
+}

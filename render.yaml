@@ -1,0 +1,18 @@
+# Free demo: local profiles, sessions, and unfinished rounds reset on sleep/restart.
+services:
+  - type: web
+    name: blockword-demo
+    runtime: python
+    plan: free
+    numInstances: 1
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scripts/serve.py
+    healthCheckPath: /healthz
+    autoDeployTrigger: 'off'
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.14
+      - key: BLOCKWORD_DATA_DIR
+        value: /tmp/blockword-data
+      - key: BLOCKWORD_DEPLOYER_FILE
+        value: /etc/secrets/deployer.json

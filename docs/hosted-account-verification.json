@@ -1,0 +1,15 @@
+{
+  "verified_at": "2026-10-21T17:52:22.152815+00:00",
+  "url": "https://blockword-ps3-demo.vercel.app",
+  "test_wallet": "0x596bf93e3e083ab43f174dc00bbb3e0aeada9d3904900935b0d86d472180cc91",
+  "checks": [
+    "unfunded Ed25519 wallet proof verified against live devnet",
+    "one-use challenge",
+    "Secure HttpOnly cookies",
+    "profile update and independent client read",
+    "cross-site mutation rejected",
+    "private history empty before explicit linking"
+  ],
+  "extension_tested": false,
+  "method": "Real Ed25519 signature through HTTP; no wallet extension used."
+}

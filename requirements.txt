@@ -1,0 +1,6 @@
+aptos-sdk==0.11.0
+fastapi==0.150.0
+uvicorn==0.54.0
+httpx==0.28.1
+pytest==9.1.1
+psycopg[binary]==3.3.6

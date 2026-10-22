@@ -61,58 +61,6 @@ wallet login identifies a player. game transactions still use a separate wallet 
 
 ## run locally
 
-you need python 3.12+, git, [aptos CLI](https://aptos.dev/build/cli/install-cli) 9.6.0 and an internet connection.
-
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python scripts/check_deployment.py
-python -m uvicorn blockword.app:app --host 127.0.0.1 --port 8000
-```
-
-open **http://127.0.0.1:8000**. on mac/linux, activate with `source .venv/bin/activate`.
-
-the setup check only reads the deployment. a fresh checkout won't have the matching private operator key, so it will stop there. run `python scripts/deploy.py` to create your own devnet deployment, then repeat the check. pass `--aptos /path/to/aptos` if the CLI isn't on your PATH.
-
-the first deployment creates an account, requests test APT, runs the Move tests, compiles and publishes the module, sets the referee key and updates `deployment.json` and this readme. the same key reuses the existing immutable module while it remains on devnet. changed contract code needs a new address.
-
-on windows, the shortcut is:
-
-```powershell
-.\run.ps1
-# to deploy first:
-# .\run.ps1 -Deploy -AptosPath 'C:\path\to\aptos.exe'
-```
-
-the launcher checks the account, module, bytecode, chain id and referee key each time. it only deploys when `-Deploy` is passed.
-
-### local data
-
-without `DATABASE_URL`, the app uses sqlite in `.local/`. `BLOCKWORD_DATA_DIR` changes that directory; deployment and the app must use the same path.
-
-this workspace keeps its runtime data outside the source folder. to use that existing local setup:
-
-```powershell
-$env:BLOCKWORD_DATA_DIR = (Resolve-Path ../../work/blockword-data).Path
-```
-
-that path is specific to this workspace. the source zip has no keys, database or environment files. another machine needs its own operator key and deployment.
-
-keep the data directory private. local wallet/referee keys are plaintext credentials. losing the saved answer can leave a round unable to verify. don't send real assets to demo wallets.
-
-### playing and recovery
-
-1. start a round. the service creates a temporary wallet and adds 0.05 devnet APT from the operator account.
-2. guess from the word list. green is the right spot, amber is another spot and grey means no unused copy of that letter remains.
-3. solve it in six guesses, or reveal and end the round.
-4. read the definition and open the verification receipt.
-
-loading the page only reads state. **check & finish verification** checks saved requests and can send the answer if the round has ended. it keeps an unsubmitted draft. a missing answer backup needs the original data restored; refreshing cannot recreate it.
-
-the first round needs funding, commitment, guess and reveal transactions. ending early adds a forfeit transaction. the service caps funding at 12 wallets and play at 20 rounds per wallet. wallets get another 0.05 test APT below a 0.03 balance; game transactions reserve up to 20,000 gas units.
-
-run one worker locally. local host/origin checks allow localhost; the hosted app uses its configured public HTTPS origin and a postgres lock across instances. `render.yaml` is an unused hosting alternative. [hosting notes](docs/hosting.md) cover the live setup.
 
 ## how verification works
 
@@ -128,48 +76,5 @@ the commitment is SHA3-256 over a BCS structure with a domain tag, deployment ad
 
 each player has `Game` and `Passport` resources. `RoundOpened`, `GuessRecorded` and `RoundVerified` events retain the recorded sequence when a new game replaces the current resource. the reveal event includes the answer and salt.
 
-## limitations
-
-- **temporary database:** the current neon database expires on **24 october 2026 at 11:16 pm IST**. the app depends on it; keeping the demo needs a claimed or replacement database and updated credentials.
-- **resettable chain:** this is aptos devnet, not mainnet. a reset can remove the contract and receipts. startup checks can then fail until deployment is restored.
-- **trusted referee:** python knows the answer and signs feedback. it can leak an answer, favour a player, withhold feedback or go offline. Move catches incorrect feedback at reveal, but cannot force the referee to finish a round. there is no timeout or replacement path.
-- **server-held game keys:** wallet login only identifies a profile. the server still holds the demo game keys and signs transactions. operator/referee key separation and player-signed games need more work. losing the saved answer can leave a round unable to verify.
-- **small-demo capacity:** game requests share a postgres lock, with a ten-second acquisition timeout. vercel requests are configured for at most 60 seconds. cold starts and chain confirmation can add delays. the app caps funding at 12 demo wallets and play at 20 rounds per wallet; it has not been load-tested for a large audience.
-- **limited wallet coverage:** login supports standard Ed25519 accounts. keyless, multisig and mobile deep-link login are not supported. installed-wallet compatibility has not been checked end to end.
-- **limited game scope:** 22 terms, one board and six guesses. no qwordle, daily puzzle, offline mode or rewards. game actions need the backend and devnet to be available.
-- **history is a copy:** saved rounds in postgres come from verified chain state, but the history API is not an independent replay verifier. database access can change those copies, and account counters do not prove learning.
-
-live feedback is provisional until final verification. this is a short demo with internal reviews and automated checks, not an independently audited competitive game. stronger secret storage, referee recovery and broader wallet/device testing would be needed for a public release beyond the demo.
-
-## checks
-
-```powershell
-python -m pytest -q
-node --test tests/client.test.cjs tests/accounts-client.test.cjs
-aptos move test --package-dir contract --named-addresses blockword=0xcafe
-```
-
-for postgres integration checks, set `BLOCKWORD_TEST_DATABASE_URL` to a disposable database. those six tests skip when it is unset.
-
-with the app running, `python scripts/smoke.py` plays a round using public feedback, retries each guess with the same request id and checks the receipts and final game resource against the fullnode.
-
-the hosted deployment passed **87 python tests**, including six real postgres checks, and **13 client tests**. the contract review passed **13 Move tests**. live checks covered a win, an early reveal, account signatures, private history and persistence after redeployment. an installed wallet extension has not been tested end to end. [validation](docs/validation.md) has the dates and evidence; [review notes](docs/review-summary.md) track the earlier findings and fixes.
-
-## files worth opening
-
-| file | what's there |
-| --- | --- |
-| `blockword/app.py` | game routes and recovery |
-| `blockword/game.py` | vocabulary and scoring |
-| `blockword/proofs.py` | BCS encoding and signed permits |
-| `blockword/chain.py` | aptos transactions and confirmation |
-| `blockword/store.py`, `blockword/database.py` | sqlite/postgres storage and locking |
-| `blockword/accounts.py`, `blockword/account_api.py` | wallet login, profiles, sessions and history |
-| `contract/sources/game.move` | contract rules, events and tests |
-| `static/` | browser client; no build step |
-| `scripts/` | deployment, setup checks and live smoke test |
-| `deployment.json`, `verification.json` | original devnet receipts |
-| `docs/hosted-*-verification.json` | hosted demo checks |
-| `docs/demo.md` | presentation walkthrough |
 
 [next ideas](docs/feature-plan.md): a term notebook, an independent replay check and optional hints.
